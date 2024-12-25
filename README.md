@@ -1,59 +1,40 @@
-# NutriCheck 🥗
+# 🍽️ NutriCheck
 
-A modern food analysis web application that helps users understand their food through image analysis.
+A modern, single-file PHP application for food analysis through image processing. Built with simplicity and user experience in mind.
 
-## Features 🌟
+## ✨ Features
 
-### Core Functionality
-- 📸 Food image upload/capture
-- 🔍 Intelligent food analysis processing
-- 🔔 Real-time feedback with toast notifications
-- 📱 Responsive UI with mobile-first design
+### 🎯 Core Functionality
+- 📸 Drag & drop image upload
+- 🖼️ Real-time image preview
+- 🔍 Instant food analysis
+- 📊 Detailed nutritional information
+- 📱 Mobile-first responsive design
 
-### User Flow
-```
-User → Upload/Capture Image → Analysis → Display Results
-```
+### 🛠️ Technical Features
+- 🔒 Secure file handling
+- 🚀 Real-time validation
+- 💾 Automatic file type detection
+- 📏 Size limit enforcement (10MB)
+- 🎨 Supported formats: JPG, PNG, GIF, WebP
 
-### Key Components
+### 🎨 User Interface
+- 🎯 Modern, clean design
+- 💫 Smooth animations
+- 📱 Responsive layout
+- 🎨 Intuitive drag & drop
+- ❌ One-click image removal
+- 📊 Progress indicators
 
-#### Image Handling
-- 📱 Camera capture (mobile-friendly)
-- 📤 File upload support
-- 🖼️ Image preview functionality
-- 📊 Upload progress visualization
-- ❌ Remove image option
+### 🔄 Data Flow
+1. 📤 User uploads/drops image
+2. ✅ Automatic validation
+3. 🖼️ Preview generation
+4. 📊 Progress tracking
+5. 🔍 Analysis processing
+6. 📋 Results display
 
-#### File Validation
-- 📏 Size limit: 10MB
-- 🎨 Supported formats:
-  - JPG/JPEG
-  - PNG
-  - GIF
-  - WebP
-
-### Data Flow Process
-1. User captures/uploads image
-2. Automatic image validation
-3. Preview display generation
-4. Progress bar animation
-5. API call to '/api/analyze'
-6. Results/error display
-
-### UI Components
-- ⏳ Progress bar for upload status
-- 🔄 Loading spinner for analysis
-- 🖼️ Responsive image preview
-- ⚠️ Clean error display
-
-### User Experience Features
-- �� Real-time feedback
-- 📈 Visual progress indicators
-- 🛡️ Graceful error handling
-- 📱 Mobile-optimized interface
-- ♿ Accessible design elements
-
-## Installation 🚀
+## 🚀 Installation
 
 ```bash
 # Clone the repository
@@ -68,57 +49,88 @@ composer install
 # Set up environment file
 cp .env.example .env
 
-# Configure your environment variables
-nano .env
-
-# Set up file permissions
+# Configure permissions
 chmod -R 755 uploads/
 chmod 644 .env
 ```
 
-## Configuration ⚙️
+## ⚙️ Configuration
 
-1. Configure your web server (Apache/Nginx) to point to the project directory
-2. Ensure PHP 8.3+ is installed with required extensions
-3. Set up proper file permissions for the uploads directory
-4. Configure your environment variables in `.env`
+1. Server Requirements:
+   - PHP 8.3+
+   - Apache/Nginx
+   - GD/Imagick extension
+   - FileInfo extension
 
-## Usage 📝
+2. Directory Permissions:
+   ```bash
+   sudo chown -R www-data:www-data uploads/
+   sudo chmod -R 775 uploads/
+   ```
 
-1. Access the application through your web browser
-2. Upload or capture a food image
-3. Wait for the analysis to complete
-4. View detailed nutritional information
+3. Web Server Configuration (Nginx):
+   ```nginx
+   location ~ \.php$ {
+       include snippets/fastcgi-php.conf;
+       fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+   }
+   ```
 
-## Security 🔒
+## 🧪 Testing
 
-- Input validation for all file uploads
-- Secure file handling
-- Environment variable protection
-- XSS protection
-- CSRF protection
+Run the test suite:
+```bash
+composer test
+```
 
-## Contributing 🤝
+Tests cover:
+- 📤 File upload validation
+- 🔍 Image processing
+- ✅ Error handling
+- 📊 Analysis results
+- 🔒 Security checks
+
+## 🚀 Deployment
+
+Use the deployment script:
+```bash
+./deploy.sh
+```
+
+The script:
+- 📦 Creates backups
+- ✅ Runs tests
+- 🔒 Fixes permissions
+- 🔄 Clears cache
+- 📊 Verifies deployment
+
+## 🔒 Security
+
+- 🛡️ File type validation
+- 🔐 Secure file handling
+- 🔒 Environment protection
+- 🛡️ XSS prevention
+- 🔐 CSRF protection
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create your feature branch
+3. Run tests
+4. Create a pull request
 
-## License 📄
+## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE)
 
-## Acknowledgments 👏
+## 👥 Contact
 
-- Built with PHP 8.3
-- Uses Bootstrap for styling
-- Implements modern web practices
-- Mobile-first approach
+- Author: [@lightyoruichi](https://github.com/lightyoruichi)
+- Project: [nutricheck.my](https://github.com/lightyoruichi/nutricheck.my)
 
-## Contact 📧
+## 🙏 Acknowledgments
 
-Your Name - [@lightyoruichi](https://github.com/lightyoruichi)
-
-Project Link: [https://github.com/lightyoruichi/nutricheck.my](https://github.com/lightyoruichi/nutricheck.my) 
+- 🎨 Bootstrap for styling
+- 📱 Mobile-first approach
+- ✨ Modern web practices
+- 🚀 PHP 8.3 features 
