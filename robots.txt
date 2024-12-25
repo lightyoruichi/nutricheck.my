@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /uploads/
+Disallow: /analyze
+
+Sitemap: https://nutricheck.my/sitemap.xml 

@@ -1,0 +1,54 @@
+{
+    "name": "NutriCheck",
+    "short_name": "NutriCheck",
+    "description": "Instant food analysis and nutritional information",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f7fafc",
+    "theme_color": "#4299e1",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/screenshots/home.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Home Screen"
+        },
+        {
+            "src": "/screenshots/results.png",
+            "sizes": "1080x1920",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "Results Screen"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Take Photo",
+            "short_name": "Photo",
+            "description": "Take a photo of your meal",
+            "url": "/?action=photo",
+            "icons": [{ "src": "/icons/camera.png", "sizes": "192x192" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false,
+    "categories": ["food", "health", "lifestyle"],
+    "lang": "en",
+    "dir": "ltr"
+} 

@@ -10,14 +10,16 @@ A modern, gamified food analysis web application that makes nutrition tracking f
 - 🎯 High accuracy analysis
 - 🟢 Halal certified
 - 📱 Mobile-first responsive design
+- 📤 Easy sharing of results
+- 🌐 Progressive Web App support
 
 ## 🛠️ Tech Stack
 
-- Frontend: Next.js, TypeScript, TailwindCSS
-- UI Components: Shadcn UI, Radix UI
-- Image Processing: TensorFlow.js
-- Backend: PHP
-- Testing: PHPUnit
+- PHP 8.2
+- HTML5, CSS3, JavaScript
+- Service Workers for offline support
+- Image compression and optimization
+- Browser caching and Gzip compression
 
 ## 🏃‍♂️ Getting Started
 
@@ -27,35 +29,75 @@ git clone https://github.com/yourusername/nutricheck.git
 cd nutricheck
 ```
 
-2. Install dependencies:
+2. Set up environment variables:
 ```bash
-composer install
-npm install
+cp .env.example .env
 ```
 
-3. Set up environment variables:
-```bash
-cp .env.example .env.local
-```
+3. Configure your web server:
+- Enable mod_rewrite and mod_headers
+- Point document root to the project directory
+- Ensure write permissions for uploads directory
 
-4. Run development server:
-```bash
-npm run dev
-```
+4. Update configuration:
+- Set APP_URL in .env
+- Configure upload limits in .htaccess
+- Set API credentials if using external services
 
 ## 📱 Mobile Support
 
 The application is fully optimized for mobile devices with:
 - Native camera integration
 - Touch-optimized interface
-- Progressive Web App (PWA) support
+- Responsive design
+- Share API integration
+- Offline support
 
-## 🔒 Security
+## 🔒 Security Features
 
 - CSRF protection
 - Secure file handling
 - Input validation
-- Rate limiting
+- Rate limiting (10 requests per hour)
+- XSS prevention
+- SQL injection protection
+- Content Security Policy
+- Strict Transport Security
+- File type validation
+- Size limits (10MB max)
+
+## 🎨 UI/UX Features
+
+- Image preview before upload
+- Loading animations
+- Progress indicators
+- Error handling
+- Tooltips for features
+- High contrast support
+- Screen reader compatibility
+
+## 🚀 Performance
+
+- Image compression
+- Lazy loading
+- Browser caching
+- Gzip compression
+- Service worker caching
+- Optimized API calls
+- Efficient DOM updates
+
+## 📦 File Structure
+
+```
+nutricheck/
+├── .env.example       # Environment variables template
+├── .gitignore        # Git ignore rules
+├── .htaccess         # Apache configuration
+├── index.php         # Main application file
+├── analyze.php       # Analysis endpoint
+├── sw.js            # Service worker
+└── uploads/         # Image upload directory
+```
 
 ## 🌟 Contributing
 

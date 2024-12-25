@@ -1,0 +1,14 @@
+/* TEAM */
+Developer: NutriCheck Team
+Site: https://nutricheck.my
+Contact: hello@nutricheck.my
+Location: Malaysia
+
+/* THANKS */
+Name: Open Source Community
+
+/* SITE */
+Last update: 2024/01/10
+Standards: HTML5, CSS3, PHP 8
+Components: Bootstrap, Inter Font, HTML2Canvas
+Software: VS Code, Git, Apache 

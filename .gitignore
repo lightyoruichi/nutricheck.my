@@ -1,86 +1,52 @@
-# System files
-.DS_Store
-Thumbs.db
-
-# IDE files
-.idea/
-.vscode/
-*.sublime-*
-.vscode-test
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-.pnpm-debug.log*
-error_log
-access_log
-
 # Environment files
 .env
 .env.*
 !.env.example
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
 
 # Uploads directory
-uploads/*
-!uploads/.gitkeep
+/uploads/*
+!/uploads/.gitkeep
 
-# Dependency directories
-/vendor/
-node_modules/
-jspm_packages/
-bower_components/
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
 
-# Build and cache directories
-.next
-out
-.nuxt
-dist
-.cache
-.parcel-cache
-.temp
-.docusaurus
-.serverless/
-.dynamodb/
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
 
-# TypeScript
-*.tsbuildinfo
+# Logs
+*.log
+error_log
+access_log
 
-# Test coverage
-coverage
-*.lcov
-.nyc_output
+# Cache files
+*.cache
+.phpunit.result.cache
 
 # Temporary files
 *.swp
 *.swo
 *~
-.npm
-.eslintcache
-.stylelintcache
-.rpt2_cache/
-.rts2_cache_cjs/
-.rts2_cache_es/
-.rts2_cache_umd/
+*.tmp
 
-# Yarn specific
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-.yarn-integrity
+# Dependency directories
+/vendor/
+/node_modules/
 
-# Misc
-*.pid
-*.seed
-*.pid.lock
-*.tgz
-.tern-port
+# Build directories
+/dist/
+/build/
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Configuration files
+*.config.php
+config.php
+!.well-known/
