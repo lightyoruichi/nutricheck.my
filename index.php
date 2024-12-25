@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['foodImage'])) {
     
     try {
         // Validate file
-        if ($file['error'] !== UPLOAD_ERROR_OK) {
+        if ($file['error'] !== UPLOAD_ERR_OK) {
             throw new Exception('Upload failed. Please try again.');
         }
         

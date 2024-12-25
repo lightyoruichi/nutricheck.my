@@ -45,7 +45,7 @@ class NutriCheckTest extends TestCase
             'name' => 'test.jpg',
             'type' => 'image/jpeg',
             'tmp_name' => $this->testImagePath,
-            'error' => UPLOAD_ERROR_OK,
+            'error' => UPLOAD_ERR_OK,
             'size' => filesize($this->testImagePath)
         ];
 
@@ -96,7 +96,7 @@ class NutriCheckTest extends TestCase
             'name' => 'test.txt',
             'type' => 'text/plain',
             'tmp_name' => __DIR__ . '/test.txt',
-            'error' => UPLOAD_ERROR_OK,
+            'error' => UPLOAD_ERR_OK,
             'size' => 100
         ];
 
@@ -111,7 +111,7 @@ class NutriCheckTest extends TestCase
             'name' => 'large.jpg',
             'type' => 'image/jpeg',
             'tmp_name' => $this->testImagePath,
-            'error' => UPLOAD_ERROR_OK,
+            'error' => UPLOAD_ERR_OK,
             'size' => MAX_FILE_SIZE + 1
         ];
 
