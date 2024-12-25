@@ -1,122 +1,114 @@
 # 🍽️ NutriCheck
 
-A modern, single-file PHP application for food analysis through image processing. Built with simplicity and user experience in mind.
+A lightweight, single-file PHP application for instant food analysis through image processing. Built with simplicity and ease of use in mind.
 
 ## ✨ Features
 
-### 🎯 Core Functionality
-- 📸 Drag & drop image upload
-- 🖼️ Real-time image preview
-- 🔍 Instant food analysis
-- 📊 Detailed nutritional information
-- 📱 Mobile-first responsive design
+### 📸 Image Upload
+- Drag & drop support
+- Camera capture on mobile
+- Gallery selection
+- Real-time preview
+- Progress indication
+- Supports JPG, PNG, GIF, WebP
+- Up to 10MB file size
 
-### 🛠️ Technical Features
-- 🔒 Secure file handling
-- 🚀 Real-time validation
-- 💾 Automatic file type detection
-- 📏 Size limit enforcement (10MB)
-- 🎨 Supported formats: JPG, PNG, GIF, WebP
+### 🔍 Analysis Features
+- Instant food recognition
+- Nutritional information:
+  - 🔥 Calories
+  - 🥩 Protein
+  - 🍚 Carbs
+  - 🥑 Fat
+- Confidence scoring
+- Real-time feedback
 
-### 🎨 User Interface
-- 🎯 Modern, clean design
-- 💫 Smooth animations
-- 📱 Responsive layout
-- 🎨 Intuitive drag & drop
-- ❌ One-click image removal
-- 📊 Progress indicators
+### 💫 User Experience
+- Mobile-first design
+- Adaptive interface
+- Smart device detection
+- Intuitive controls
+- Visual feedback
+- Error handling
 
-### 🔄 Data Flow
-1. 📤 User uploads/drops image
-2. ✅ Automatic validation
-3. 🖼️ Preview generation
-4. 📊 Progress tracking
-5. 🔍 Analysis processing
-6. 📋 Results display
+## 🚀 Quick Start
 
-## 🚀 Installation
-
+1. Clone the repository:
 ```bash
-# Clone the repository
 git clone https://github.com/lightyoruichi/nutricheck.my.git
-
-# Navigate to project directory
-cd nutricheck.my
-
-# Install dependencies
-composer install
-
-# Set up environment file
-cp .env.example .env
-
-# Configure permissions
-chmod -R 755 uploads/
-chmod 644 .env
 ```
 
-## ⚙️ Configuration
-
-1. Server Requirements:
-   - PHP 8.3+
-   - Apache/Nginx
-   - GD/Imagick extension
-   - FileInfo extension
-
-2. Directory Permissions:
-   ```bash
-   sudo chown -R www-data:www-data uploads/
-   sudo chmod -R 775 uploads/
-   ```
-
-3. Web Server Configuration (Nginx):
-   ```nginx
-   location ~ \.php$ {
-       include snippets/fastcgi-php.conf;
-       fastcgi_pass unix:/run/php/php8.3-fpm.sock;
-   }
-   ```
-
-## 🧪 Testing
-
-Run the test suite:
+2. Set up permissions:
 ```bash
-composer test
+mkdir uploads
+chmod 775 uploads
 ```
 
-Tests cover:
-- 📤 File upload validation
-- 🔍 Image processing
-- ✅ Error handling
-- 📊 Analysis results
-- 🔒 Security checks
+3. Configure your web server (Apache/Nginx) to point to the directory.
 
-## 🚀 Deployment
+## ⚙️ Requirements
 
-Use the deployment script:
-```bash
-./deploy.sh
+- PHP 8.3+
+- Web server (Apache/Nginx)
+- FileInfo extension
+- GD/Imagick extension
+- Write permissions for uploads directory
+
+## 🔧 Configuration
+
+The application uses these default settings (adjustable in `index.php`):
+
+```php
+define('UPLOAD_DIR', __DIR__ . '/uploads/');
+define('MAX_FILE_SIZE', 10 * 1024 * 1024); // 10MB
+define('ALLOWED_TYPES', ['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
 ```
 
-The script:
-- 📦 Creates backups
-- ✅ Runs tests
-- 🔒 Fixes permissions
-- 🔄 Clears cache
-- 📊 Verifies deployment
+## 🌐 Web Server Configuration
+
+### Nginx
+```nginx
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+    fastcgi_pass unix:/run/php/php8.3-fpm.sock;
+}
+
+client_max_body_size 10M;
+```
+
+### Apache
+```apache
+<Directory /path/to/nutricheck>
+    AllowOverride All
+    Require all granted
+</Directory>
+
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+```
 
 ## 🔒 Security
 
-- 🛡️ File type validation
-- 🔐 Secure file handling
-- 🔒 Environment protection
-- 🛡️ XSS prevention
-- 🔐 CSRF protection
+- File type validation
+- Size restrictions
+- Error handling
+- XSS prevention
+- Upload directory protection
+
+## 📱 Mobile Support
+
+The application automatically detects mobile devices and provides:
+- Camera access for food photos
+- Gallery selection option
+- Touch-friendly interface
+- Responsive design
+- Safe area handling
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create your feature branch
-3. Run tests
+3. Make your changes
 4. Create a pull request
 
 ## 📄 License
@@ -126,11 +118,4 @@ MIT License - see [LICENSE](LICENSE)
 ## 👥 Contact
 
 - Author: [@lightyoruichi](https://github.com/lightyoruichi)
-- Project: [nutricheck.my](https://github.com/lightyoruichi/nutricheck.my)
-
-## 🙏 Acknowledgments
-
-- 🎨 Bootstrap for styling
-- 📱 Mobile-first approach
-- ✨ Modern web practices
-- 🚀 PHP 8.3 features 
+- Project: [nutricheck.my](https://github.com/lightyoruichi/nutricheck.my) 
