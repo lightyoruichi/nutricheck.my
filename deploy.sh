@@ -3,7 +3,7 @@
 # Exit on error
 set -e
 
-echo "🚀 Starting deployment..."
+echo "�� Starting deployment..."
 
 # Check if running as root
 if [ "$EUID" -ne 0 ]; then 

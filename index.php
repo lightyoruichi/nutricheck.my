@@ -169,39 +169,34 @@ if (isset($_SESSION['analysis_result'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍽️ NutriCheck</title>
+    <title>🍽️ NutriCheck - Food Analysis Made Simple</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    <link 
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-        rel="stylesheet"
-    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2563eb;
-            --primary-gradient: linear-gradient(135deg, #2563eb, #0ea5e9);
-            --secondary-color: #f8fafc;
-            --text-color: #0f172a;
+            --primary-gradient: linear-gradient(135deg, #009688, #00695C);
+            --accent-color: #4CAF50;
+            --accent-hover: #45a049;
+            --background-color: #F9F9F9;
+            --text-primary: #333333;
+            --text-secondary: #777777;
             --border-radius: 16px;
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         body {
-            background: var(--secondary-color);
-            color: var(--text-color);
-            font-family: 
-                -apple-system, 
-                BlinkMacSystemFont, 
-                'Segoe UI', 
-                Roboto, 
-                Oxygen, 
-                Ubuntu, 
-                Cantarell, 
-                sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            font-family: var(--font-family);
             -webkit-font-smoothing: antialiased;
             height: 100vh;
             margin: 0;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .app-container {
@@ -216,73 +211,238 @@ if (isset($_SESSION['analysis_result'])) {
         }
 
         .app-header {
-            padding: 1.25rem 1rem;
-            background: linear-gradient(to right, #ff6b6b, #4ecdc4);
+            padding: 2.5rem 1.5rem;
+            background: var(--primary-gradient);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-header h1 {
+        .app-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(0,0,0,0.1), transparent);
+            pointer-events: none;
+        }
+
+        .adidas-style {
+            font-family: var(--font-family);
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: -0.02em;
+            color: white;
             margin: 0;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 2.75rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .app-header p {
             margin: 0.75rem 0 0;
-            color: #64748b;
-            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.35rem;
             font-weight: 500;
-            background: linear-gradient(135deg, #64748b, #94a3b8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.01em;
         }
 
         .main-content {
             padding: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
+            flex: 1;
         }
 
-        .upload-button {
-            width: 100%;
-            max-width: 280px;
-            aspect-ratio: 3/2;
-            margin: 0.5rem 0;
-        }
-
-        .upload-button:hover, .upload-button:focus {
-            border-color: var(--primary-color);
+        .upload-zone {
+            min-height: 220px;
+            max-width: 340px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            border: 2.5px dashed #e2e8f0;
+            border-radius: var(--border-radius);
             background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .upload-zone:hover {
+            border-color: var(--accent-color);
+            background: #f8fafc;
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
         }
 
-        .upload-button .icon {
+        .camera-icon {
             font-size: 4rem;
+            margin-bottom: 1.25rem;
+            color: var(--accent-color);
+            animation: pulse 2s infinite;
+            display: block;
+            line-height: 1;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.85; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .upload-text {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
             margin-bottom: 1rem;
-            color: var(--primary-color);
+            letter-spacing: -0.01em;
         }
 
-        .upload-button .text {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-color);
-            text-align: center;
-            margin-bottom: 0.5rem;
+        .upload-subtext {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 260px;
+            line-height: 1.5;
         }
 
-        .upload-button .subtext {
+        .supported-formats {
+            display: flex;
+            gap: 1.25rem;
+            margin: 2rem auto;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 340px;
+        }
+
+        .format-tag {
             font-size: 1rem;
-            color: #64748b;
+            color: var(--text-secondary);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .format-tag:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+            color: var(--accent-color);
+        }
+
+        .format-note {
+            width: 100%;
             text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+            font-style: italic;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        .format-note:hover {
+            opacity: 1;
+        }
+
+        .quick-info {
+            text-align: center;
+            margin: 2.5rem auto;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quick-info span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .quick-info span:hover {
+            color: var(--accent-color);
+            transform: translateX(4px);
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .halal-info {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .halal-tooltip {
+            position: absolute;
+            bottom: calc(100% + 0.5rem);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+            width: 250px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .halal-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .halal-info:hover .halal-tooltip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .halal-tooltip {
+                width: 200px;
+                font-size: 0.8125rem;
+                padding: 0.5rem 0.75rem;
+            }
         }
 
         .footer-info {
-            margin-top: 1rem;
             text-align: center;
             color: #64748b;
             font-size: 0.875rem;
+            margin-top: 1rem;
         }
 
         .footer-info p {
@@ -290,60 +450,84 @@ if (isset($_SESSION['analysis_result'])) {
         }
 
         #preview-container {
-            position: absolute;
-            inset: 1.25rem;
+            display: none;
+            position: relative;
+            max-width: 280px;
+            margin: 1rem auto;
             border-radius: var(--border-radius);
             overflow: hidden;
-            background: var(--secondary-color);
-            display: none;
+            box-shadow: var(--shadow-md);
         }
 
         #preview {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
         }
 
         .preview-overlay {
             position: absolute;
             inset: 0;
             background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             color: white;
-            padding: 1.25rem;
-            backdrop-filter: blur(4px);
+            padding: 1rem;
         }
 
-        .preview-overlay .progress {
+        .progress {
             width: 80%;
-            max-width: 240px;
-            height: 0.5rem;
+            max-width: 200px;
+            height: 4px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 1rem;
-            overflow: hidden;
+            border-radius: 2px;
             margin-top: 1rem;
+            overflow: hidden;
         }
 
-        .preview-overlay .progress-bar {
+        .progress-bar {
             height: 100%;
-            background: var(--primary-color);
-            border-radius: 1rem;
-            transition: width 0.2s ease;
+            background: #4ECDC4;
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
-        .result-card {
-            position: absolute;
-            inset: 1.25rem;
+        .results-card {
             background: white;
             border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-top: 1.5rem;
             box-shadow: var(--shadow-md);
-            padding: 1.25rem;
-            display: none;
-            overflow: auto;
-            gap: 1rem;
+            animation: slideUp 0.3s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+        }
+
+        .result-card.screenshot-mode {
+            padding-bottom: 3rem;
+        }
+
+        .result-card.screenshot-mode::after {
+            content: 'Analyzed with nutricheck.my';
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
         }
 
         .result-header {
@@ -351,328 +535,409 @@ if (isset($_SESSION['analysis_result'])) {
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1.5rem;
+            gap: 1rem;
         }
 
         .result-header h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
             margin: 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .confidence {
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.875rem;
-            color: #10b981;
+            animation: bounce 0.6s ease-out;
+        }
+
+        .completion-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+        }
+
+        .completion-icon {
+            font-size: 1.5rem;
+            animation: spin 4s linear infinite;
+        }
+
+        .completion-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .confidence-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+
+        .confidence-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .success-message {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
+            margin: 1.5rem 0;
         }
 
         .metric {
-            background: var(--secondary-color);
-            padding: 1rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .metric-label {
-            font-size: 0.875rem;
-            color: #64748b;
-            margin-bottom: 0.5rem;
-        }
-
-        .metric-value {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-color);
-        }
-
-        .action-button {
-            width: 100%;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 12px;
-            background: var(--primary-color);
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
+            background: #f8fafc;
+            padding: 1.25rem;
+            border-radius: 16px;
             transition: all 0.2s ease;
-            margin-top: 1rem;
-        }
-
-        .action-button:hover {
-            background: #1d4ed8;
-        }
-
-        .action-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        @media (max-width: 480px) {
-            .app-container {
-                box-shadow: none;
-            }
-            
-            .upload-button {
-                aspect-ratio: 5/4;
-            }
-            
-            .main-content {
-                padding: 1rem;
-            }
-        }
-
-        @supports (padding: max(0px)) {
-            .app-container {
-                padding-bottom: max(1rem, env(safe-area-inset-bottom));
-            }
-        }
-
-        .adidas-style {
-            font-family: 'Arial', 'Helvetica', sans-serif;
-            font-weight: 700;
-            text-transform: lowercase;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-            display: inline-flex;
-            align-items: center;
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .adidas-style::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(135deg, #FF6B6B, #4ECDC4);
-            border-radius: 2px;
-            opacity: 0.5;
-        }
-
-        .total-metrics {
-            background: var(--secondary-color);
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 1rem;
-        }
-
-        .total-metrics h4 {
-            margin: 0 0 1rem;
-            font-size: 1.1rem;
-            color: var(--text-color);
-        }
-
-        .food-items {
-            margin-top: 1rem;
-        }
-
-        .food-items h4 {
-            margin: 0 0 1rem;
-            font-size: 1.1rem;
-            color: var(--text-color);
-        }
-
-        .food-item {
-            background: var(--secondary-color);
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 0.75rem;
-        }
-
-        .food-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .food-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.75rem;
-        }
-
-        .food-item-header h5 {
-            margin: 0;
-            font-size: 1rem;
-            color: var(--text-color);
-        }
-
-        .portion {
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-        .food-item-metrics {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-            font-size: 0.875rem;
-            color: #64748b;
-        }
-
-        .ingredients h6 {
-            margin: 0 0 0.5rem;
-            font-size: 0.875rem;
-            color: var(--text-color);
-        }
-
-        .ingredients-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .ingredient-tag {
-            background: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.875rem;
-            color: var(--text-color);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .alert {
-            width: 100%;
-            max-width: 320px;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            margin-bottom: 1rem;
-            text-align: center;
-            animation: fadeOut 5s forwards;
-        }
-
-        .alert-success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .alert-danger {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            70% { opacity: 1; }
-            100% { opacity: 0; visibility: hidden; }
-        }
-
-        .button-group {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1rem;
-        }
-
-        .action-button {
-            flex: 1;
-            padding: 0.75rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .primary-button {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .primary-button:hover {
-            background: #1d4ed8;
-        }
-
-        .secondary-button {
-            background: var(--secondary-color);
-            color: var(--text-color);
-            border: 1px solid #e2e8f0;
-        }
-
-        .secondary-button:hover {
-            background: #f1f5f9;
-        }
-
-        .upload-button {
             position: relative;
             overflow: hidden;
         }
 
-        .upload-button::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(14, 165, 233, 0.1));
-            opacity: 0;
-            transition: opacity 0.2s ease;
+        .metric:hover {
+            transform: translateY(-2px);
+            background: #f1f5f9;
         }
 
-        .upload-button:hover::after {
-            opacity: 1;
-        }
-
-        .upload-hint {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.875rem;
-            color: #64748b;
-            white-space: nowrap;
-            pointer-events: none;
-        }
-
-        .upload-zone {
-            min-height: 200px;
-            max-width: 280px;
-            aspect-ratio: 4/3;
-            margin: 1rem auto;
-            padding: 1.5rem;
-            border: 2px dashed #ccc;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-        }
-
-        .camera-icon {
-            width: 48px;
-            height: 48px;
+        .metric-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
             margin-bottom: 0.75rem;
         }
 
-        .format-info {
-            margin-top: 0.5rem;
-            font-size: 0.875rem;
-            color: #666;
+        .metric-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
         }
 
-        .results-card {
-            margin-top: 1rem;
-            padding: 1.25rem;
-            border-radius: 12px;
+        .metric-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .metric-value {
+            display: flex;
+            align-items: baseline;
+            gap: 0.25rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value .unit {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .metric-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: var(--progress);
+            height: 4px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            border-radius: 0 2px 2px 0;
+            transition: width 1s ease-out;
+        }
+
+        .food-items {
+            margin-top: 2.5rem;
+        }
+
+        .food-items h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+
+        .food-item {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .food-item:hover {
+            transform: translateY(-2px);
+            background: #f1f5f9;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .metric-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .metric-pill:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+            color: var(--accent-color);
+        }
+
+        .share-section {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+            padding: 0 1rem;
+        }
+
+        .share-button,
+        .download-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f8fafc;
+            color: var(--text-primary);
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .share-button:hover,
+        .download-button:hover {
+            transform: translateY(-2px);
+            background: #f1f5f9;
+            box-shadow: var(--shadow-md);
+        }
+
+        .share-button:active,
+        .download-button:active {
+            transform: translateY(0);
+        }
+
+        .button-icon {
+            font-size: 1.25rem;
+            transition: transform 0.2s ease;
+        }
+
+        .share-button:hover .button-icon,
+        .download-button:hover .button-icon {
+            transform: translateY(-2px);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .food-item-metrics {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .metric-pill {
+                flex: 1;
+                min-width: calc(50% - 0.5rem);
+            }
+
+            .share-section {
+                flex-direction: column;
+            }
+
+            .share-button,
+            .download-button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .halal-tooltip {
+                width: 200px;
+                font-size: 0.8125rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+
+        .alert {
+            position: relative;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: var(--border-radius);
+            animation: slideIn 0.3s ease-out;
+            opacity: 1;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+
+        .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-icon {
+            font-size: 1.25rem;
+        }
+
+        .alert-message {
+            flex: 1;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .alert-close {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: currentColor;
+            opacity: 0.5;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .alert-close:hover {
+            opacity: 1;
+        }
+
+        .alert-fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+            border: 1px solid #FCA5A5;
+        }
+
+        .alert-success {
+            background: #DCFCE7;
+            color: #166534;
+            border: 1px solid #86EFAC;
+        }
+
+        .halal-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease;
+        }
+
+        .halal-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .halal-badge .icon {
+            color: #4CAF50;
+            font-size: 1.25rem;
+        }
+
+        .halal-tooltip {
+            position: absolute;
+            bottom: -2.5rem;
+            right: 0;
+            background: white;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            box-shadow: var(--shadow-md);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            pointer-events: none;
+            width: 200px;
+            text-align: center;
+        }
+
+        .halal-badge:hover .halal-tooltip {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1 class="adidas-style">🍽️ NutriCheck</h1>
-            <p>Quickly analyze your meals for better health</p>
+            <h1 class="adidas-style">🍽️ nutricheck</h1>
+            <p>Level up your meals for better health</p>
         </header>
 
         <main class="main-content">
@@ -684,72 +949,111 @@ if (isset($_SESSION['analysis_result'])) {
 
             <form action="" method="POST" enctype="multipart/form-data" id="uploadForm">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
-
-                <div class="upload-button" id="uploadButton">
-                    <span class="icon">📸</span>
-                    <span class="text">Upload or Capture Your Meal</span>
-                    <span class="subtext" id="uploadSubtext">
-                        Drop your food image here or click to choose
-                    </span>
-                    <input 
-                        type="file" 
-                        class="d-none" 
-                        id="foodImage" 
-                        name="foodImage" 
-                        accept="image/*" 
-                        required
-                    >
+                
+                <div class="upload-zone" id="uploadButton">
+                    <span class="camera-icon">📸</span>
+                    <div class="upload-text">Upload or Capture Your Meal</div>
+                    <div class="upload-subtext" id="uploadSubtext">
+                        Drop your food pic here or click to summon your camera spell
+                    </div>
+                    <input type="file" class="d-none" id="foodImage" name="foodImage" accept="image/*" required>
                 </div>
 
-                <div id="preview-container" class="preview-container">
-                    <img id="preview" alt="Preview" class="preview-image">
+                <div class="supported-formats">
+                    <span class="format-tag">🖼️ JPG</span>
+                    <span class="format-tag">📂 PNG</span>
+                    <span class="format-tag">🎥 GIF</span>
+                    <span class="format-tag">🌐 WebP</span>
+                    <div class="format-note">Max size: 10MB—because some bosses need limits</div>
+                </div>
+
+                <div class="quick-info">
+                    <span>📱 Mobile? Use your camera!</span>
+                    <span>⚡ Analysis in under 10 seconds—no loading screens</span>
+                    <span>🎯 High accuracy for insights you can trust</span>
+                    <span class="halal-info">
+                        <span>🟢 Certified Halal for peace of mind</span>
+                        <div class="halal-tooltip">Our analysis ensures your meals align with Halal dietary requirements</div>
+                    </span>
+                </div>
+
+                <div id="preview-container">
+                    <img id="preview" src="" alt="Preview">
                     <div class="preview-overlay">
-                        <p>Analyzing your food...</p>
+                        <p>Analyzing your meal...</p>
                         <div class="progress">
                             <div class="progress-bar" style="width: 0%"></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="footer-info">
-                    <p>Supported formats: JPG, PNG, GIF, WebP</p>
-                    <p>Maximum file size: 10MB</p>
-                </div>
-
                 <?php if ($analysisResult) : ?>
-                <div class="result-card" id="resultCard" style="display: block;">
+                <div class="result-card" id="resultCard">
                     <div class="result-header">
-                        <h3>🍽️ Analysis Results</h3>
-                        <span class="confidence">
-                            <span>🎯</span>
-                            <span><?php echo $analysisResult['confidence']; ?> confidence</span>
-                        </span>
-                    </div>
-                    
-                    <div class="total-metrics">
-                        <h4>Total Nutritional Value</h4>
-                        <div class="metrics-grid">
-                            <div class="metric">
-                                <div class="metric-label">🔥 Calories</div>
-                                <div class="metric-value"><?php echo $analysisResult['total']['calories']; ?></div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">🥩 Protein</div>
-                                <div class="metric-value"><?php echo $analysisResult['total']['protein']; ?></div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">🍚 Carbs</div>
-                                <div class="metric-value"><?php echo $analysisResult['total']['carbs']; ?></div>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-label">🥑 Fat</div>
-                                <div class="metric-value"><?php echo $analysisResult['total']['fat']; ?></div>
+                        <h3>🍽 Analysis Complete!</h3>
+                        <div class="completion-badge">
+                            <div class="completion-icon">✨</div>
+                            <div class="completion-text">
+                                <span class="confidence-label">Analysis Confidence</span>
+                                <span class="confidence-value"><?php echo $analysisResult['confidence']; ?></span>
                             </div>
                         </div>
                     </div>
 
+                    <div class="success-message">
+                        Great job! Here's your meal's nutritional breakdown
+                    </div>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span class="metric-icon">🔥</span>
+                                <span>Calories</span>
+                                <span class="metric-subtitle">Fuel for your journey</span>
+                            </div>
+                            <div class="metric-value">
+                                <span class="value"><?php echo $analysisResult['total']['calories']; ?></span>
+                                <span class="unit">kcal</span>
+                            </div>
+                            <div class="metric-progress" style="--progress: <?php echo min(100, ($analysisResult['total']['calories'] / 2000) * 100); ?>%"></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span class="metric-icon">🥩</span>
+                                <span>Protein</span>
+                                <span class="metric-subtitle">Muscle power, unlocked!</span>
+                            </div>
+                            <div class="metric-value">
+                                <span class="value"><?php echo $analysisResult['total']['protein']; ?></span>
+                            </div>
+                            <div class="metric-progress" style="--progress: <?php echo min(100, (intval($analysisResult['total']['protein']) / 50) * 100); ?>%"></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span class="metric-icon">🍚</span>
+                                <span>Carbs</span>
+                                <span class="metric-subtitle">Energy on demand</span>
+                            </div>
+                            <div class="metric-value">
+                                <span class="value"><?php echo $analysisResult['total']['carbs']; ?></span>
+                            </div>
+                            <div class="metric-progress" style="--progress: <?php echo min(100, (intval($analysisResult['total']['carbs']) / 300) * 100); ?>%"></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span class="metric-icon">🥑</span>
+                                <span>Fat</span>
+                                <span class="metric-subtitle">Good vibes (and oils)</span>
+                            </div>
+                            <div class="metric-value">
+                                <span class="value"><?php echo $analysisResult['total']['fat']; ?></span>
+                            </div>
+                            <div class="metric-progress" style="--progress: <?php echo min(100, (intval($analysisResult['total']['fat']) / 65) * 100); ?>%"></div>
+                        </div>
+                    </div>
+
                     <div class="food-items">
-                        <h4>Detected Food Items</h4>
+                        <h4>🍱 Here's what we found on your plate</h4>
                         <?php foreach ($analysisResult['items'] as $item): ?>
                         <div class="food-item">
                             <div class="food-item-header">
@@ -757,13 +1061,25 @@ if (isset($_SESSION['analysis_result'])) {
                                 <span class="portion"><?php echo htmlspecialchars($item['portion']); ?></span>
                             </div>
                             <div class="food-item-metrics">
-                                <span>🔥 <?php echo $item['calories']; ?> cal</span>
-                                <span>🥩 <?php echo $item['protein']; ?></span>
-                                <span>🍚 <?php echo $item['carbs']; ?></span>
-                                <span>🥑 <?php echo $item['fat']; ?></span>
+                                <span class="metric-pill">
+                                    <span class="metric-icon">🔥</span>
+                                    <span class="metric-value"><?php echo $item['calories']; ?> cal</span>
+                                </span>
+                                <span class="metric-pill">
+                                    <span class="metric-icon">🥩</span>
+                                    <span class="metric-value"><?php echo $item['protein']; ?></span>
+                                </span>
+                                <span class="metric-pill">
+                                    <span class="metric-icon">🍚</span>
+                                    <span class="metric-value"><?php echo $item['carbs']; ?></span>
+                                </span>
+                                <span class="metric-pill">
+                                    <span class="metric-icon">🥑</span>
+                                    <span class="metric-value"><?php echo $item['fat']; ?></span>
+                                </span>
                             </div>
                             <div class="ingredients">
-                                <h6>Ingredients:</h6>
+                                <h6>🥗 Made with:</h6>
                                 <div class="ingredients-list">
                                     <?php foreach ($item['ingredients'] as $ingredient): ?>
                                     <span class="ingredient-tag"><?php echo htmlspecialchars($ingredient); ?></span>
@@ -774,12 +1090,25 @@ if (isset($_SESSION['analysis_result'])) {
                         <?php endforeach; ?>
                     </div>
 
-                    <div class="button-group">
+                    <div class="action-buttons">
                         <button type="button" class="action-button secondary-button" onclick="resetForm()">
-                            ← Back to Camera
+                            <span class="button-icon">←</span>
+                            <span>Edit Meal</span>
                         </button>
                         <button type="button" class="action-button primary-button" onclick="retakePhoto()">
-                            📸 Take New Photo
+                            <span class="button-icon">📸</span>
+                            <span>Analyze Another Meal</span>
+                        </button>
+                    </div>
+
+                    <div class="share-section">
+                        <button type="button" class="share-button" onclick="shareResults()">
+                            <span class="button-icon">📤</span>
+                            <span>Share Results</span>
+                        </button>
+                        <button type="button" class="download-button" onclick="downloadPDF()">
+                            <span class="button-icon">📥</span>
+                            <span>Download Report</span>
                         </button>
                     </div>
                 </div>
@@ -791,6 +1120,7 @@ if (isset($_SESSION['analysis_result'])) {
     <script 
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     ></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('uploadForm');
@@ -806,20 +1136,40 @@ if (isset($_SESSION['analysis_result'])) {
             if (resultCard) {
                 uploadButton.style.display = 'none';
                 resultCard.style.display = 'block';
+                // Hide the supported formats and quick info when showing results
+                document.querySelector('.supported-formats').style.display = 'none';
+                document.querySelector('.quick-info').style.display = 'none';
             }
 
-            // Detect device capabilities
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(
-                navigator.userAgent
-            );
-            const hasCamera = navigator.mediaDevices && 
-                navigator.mediaDevices.getUserMedia;
+            // Enhanced device and capability detection
+            const deviceInfo = {
+                isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+                hasCamera: !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia),
+                hasTouchScreen: ('ontouchstart' in window) || (navigator.maxTouchPoints > 0),
+                prefersDarkMode: window.matchMedia('(prefers-color-scheme: dark)').matches
+            };
 
-            // Update upload text based on device
-            if (isMobile && hasCamera) {
-                uploadSubtext.textContent = 'Tap to take a photo';
-                fileInput.setAttribute('capture', 'environment');
+            // Update UI based on device capabilities
+            function updateDeviceSpecificUI() {
+                if (deviceInfo.isMobile && deviceInfo.hasCamera) {
+                    uploadSubtext.textContent = '📸 Tap to take a photo';
+                    fileInput.setAttribute('capture', 'environment');
+                    uploadButton.classList.add('mobile-optimized');
+                } else {
+                    uploadSubtext.textContent = '🖼️ Drop your food image here or click to choose';
+                }
+
+                // Add device-specific classes
+                document.body.classList.toggle('is-mobile', deviceInfo.isMobile);
+                document.body.classList.toggle('has-touch', deviceInfo.hasTouchScreen);
+                document.body.classList.toggle('dark-mode', deviceInfo.prefersDarkMode);
             }
+
+            // Initialize device-specific UI
+            updateDeviceSpecificUI();
+
+            // Listen for dark mode changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateDeviceSpecificUI);
 
             // Click handling
             uploadButton.addEventListener('click', () => fileInput.click());
@@ -935,16 +1285,47 @@ if (isset($_SESSION['analysis_result'])) {
 
             function showError(message) {
                 const alertHtml = `
-                    <div class="alert alert-danger">
-                        ❌ ${message}
+                    <div class="alert alert-danger" role="alert">
+                        <div class="alert-content">
+                            <span class="alert-icon">❌</span>
+                            <span class="alert-message">${message}</span>
+                        </div>
+                        <button type="button" class="alert-close" aria-label="Close alert">×</button>
                     </div>
                 `;
                 const mainContent = document.querySelector('.main-content');
+                const existingAlert = mainContent.querySelector('.alert');
+                
+                // Remove existing alert if present
+                if (existingAlert) {
+                    existingAlert.remove();
+                }
+                
+                // Insert new alert
                 mainContent.insertAdjacentHTML('afterbegin', alertHtml);
+                
+                // Add click handler for close button
+                const newAlert = mainContent.querySelector('.alert');
+                const closeButton = newAlert.querySelector('.alert-close');
+                
+                closeButton.addEventListener('click', () => {
+                    newAlert.classList.add('alert-fade-out');
+                    setTimeout(() => newAlert.remove(), 300);
+                });
+
+                // Auto-remove after delay with fade animation
                 setTimeout(() => {
-                    const alert = document.querySelector('.alert');
-                    if (alert) alert.remove();
-                }, 5000);
+                    if (newAlert && newAlert.isConnected) {
+                        newAlert.classList.add('alert-fade-out');
+                        setTimeout(() => newAlert.remove(), 300);
+                    }
+                }, 2000); // Reduced from 3000 to 2000ms
+            }
+
+            // Remove success message after 2 seconds with animation
+            const successAlert = document.querySelector('.alert-success');
+            if (successAlert) {
+                successAlert.remove(); // Remove immediately since it's not needed
             }
 
             // File input change
@@ -991,6 +1372,126 @@ if (isset($_SESSION['analysis_result'])) {
             if (window.history.replaceState) {
                 window.history.replaceState(null, null, window.location.href);
             }
+        }
+
+        async function shareResults() {
+            try {
+                showMessage('Preparing your results...', 'success');
+                
+                // Get the result card element
+                const resultCard = document.getElementById('resultCard');
+                if (!resultCard) {
+                    throw new Error('No results to share');
+                }
+
+                // Create a temporary container for the screenshot
+                const container = document.createElement('div');
+                container.style.position = 'absolute';
+                container.style.left = '-9999px';
+                container.style.top = '-9999px';
+                container.style.width = '480px'; // Fixed width for consistent results
+                
+                // Clone the result card
+                const clone = resultCard.cloneNode(true);
+                container.appendChild(clone);
+                document.body.appendChild(container);
+
+                // Take screenshot
+                const canvas = await html2canvas(clone, {
+                    scale: 2, // Higher resolution
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    width: 480,
+                    windowWidth: 480,
+                    useCORS: true
+                });
+
+                // Remove temporary container
+                document.body.removeChild(container);
+
+                // Convert canvas to blob
+                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                const file = new File([blob], 'nutricheck-results.png', { type: 'image/png' });
+
+                // Prepare share data
+                const shareData = {
+                    title: 'My NutriCheck Results 🍽️',
+                    text: '🎯 Just analyzed my meal with NutriCheck!\n' +
+                          '🔥 Calories: ' + document.querySelector('.metric-value .value').textContent + ' kcal\n' +
+                          '💪 Check out my nutritional breakdown and level up your meals too!',
+                    files: [file]
+                };
+
+                // Try native sharing first
+                if (navigator.canShare && navigator.canShare(shareData)) {
+                    await navigator.share(shareData);
+                } else {
+                    // Fallback: Download the image
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/png');
+                    link.download = 'nutricheck-results.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    // Copy share text to clipboard
+                    await navigator.clipboard.writeText(shareData.text);
+                    showMessage('Image downloaded and text copied to clipboard!', 'success');
+                }
+            } catch (error) {
+                console.error('Error sharing:', error);
+                showMessage('Unable to share results. Please try again.', 'error');
+            }
+        }
+
+        function downloadPDF() {
+            // This is a placeholder - you'll need to implement actual PDF generation
+            showMessage('Downloading your meal analysis...', 'success');
+            
+            // Simulate PDF download
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = '#'; // Replace with actual PDF URL
+                link.download = 'nutricheck-analysis.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 1000);
+        }
+
+        function showMessage(message, type = 'success') {
+            const alertHtml = `
+                <div class="alert alert-${type}" role="alert">
+                    <div class="alert-content">
+                        <span class="alert-icon">${type === 'success' ? '✅' : '❌'}</span>
+                        <span class="alert-message">${message}</span>
+                    </div>
+                    <button type="button" class="alert-close" aria-label="Close alert">×</button>
+                </div>
+            `;
+            const mainContent = document.querySelector('.main-content');
+            const existingAlert = mainContent.querySelector('.alert');
+            
+            if (existingAlert) {
+                existingAlert.remove();
+            }
+            
+            mainContent.insertAdjacentHTML('afterbegin', alertHtml);
+            
+            const newAlert = mainContent.querySelector('.alert');
+            const closeButton = newAlert.querySelector('.alert-close');
+            
+            closeButton.addEventListener('click', () => {
+                newAlert.classList.add('alert-fade-out');
+                setTimeout(() => newAlert.remove(), 300);
+            });
+
+            setTimeout(() => {
+                if (newAlert && newAlert.isConnected) {
+                    newAlert.classList.add('alert-fade-out');
+                    setTimeout(() => newAlert.remove(), 300);
+                }
+            }, 2000);
         }
     </script>
 </body>
