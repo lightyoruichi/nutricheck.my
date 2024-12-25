@@ -1,490 +1,270 @@
 # Results Page Layout 🎮
 
-## Header Section
+## Screenshot-Optimized View
 ```html
-<header class="header" role="banner">
-    <div class="container">
-        <a href="https://nutricheck.my" class="logo-link" aria-label="Return to Nutricheck homepage">
-            🎯 nutricheck.my
-            <span class="sparkle" aria-hidden="true">✨</span>
-        </a>
-        <div class="tagline">Level up your health with every meal!</div>
-    </div>
-</header>
-
-<style>
-.header {
-    padding: 1.5rem 1rem;
-    text-align: center;
-}
-
-@media (min-width: 768px) {
-    .header {
-        text-align: left;
-    }
-}
-
-.logo-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #1a1a1a;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.logo-link:hover {
-    color: #4a90e2;
-}
-
-.sparkle {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.logo-link:hover .sparkle {
-    transform: scale(1.1) rotate(3deg);
-}
-
-.tagline {
-    margin-top: 0.5rem;
-    font-size: 1.125rem;
-    color: #666;
-}
-</style>
-```
-
-## Achievement Banner
-```html
-<section class="achievement-banner" role="status" aria-label="Analysis Results">
-    <div class="container">
-        <h1 class="achievement-title">
-            🎉 Food Analysis Achievement Unlocked!
-        </h1>
-        <div class="analysis-level">
-            <span>✨ Analysis Power Level:</span>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 92%"></div>
-            </div>
-            <span class="progress-text">92%</span>
+<div class="result-card">
+    <header class="result-header">
+        <div class="brand">
+            <span class="logo">🎯</span>
+            <h1>nutricheck.my</h1>
         </div>
-        <p class="achievement-message">
-            Epic scan complete! Ready to see your meal stats?
-        </p>
+        <div class="share-info">
+            <div class="confidence">
+                <span class="confidence-label">Analysis Confidence</span>
+                <div class="confidence-bar">
+                    <div class="confidence-fill" style="width: 92%"></div>
+                </div>
+                <span class="confidence-value">92%</span>
+            </div>
+            <time class="timestamp">Analyzed on <?php echo date('M j, Y'); ?></time>
+        </div>
+    </header>
+
+    <div class="meal-preview">
+        <img src="<?php echo htmlspecialchars($imageUrl); ?>" alt="Your meal" class="meal-image">
+        <div class="meal-overlay">
+            <span class="meal-badge">✨ Epic Meal Analysis</span>
+        </div>
     </div>
-</section>
+
+    <div class="nutrition-grid">
+        <div class="nutrition-stat">
+            <span class="stat-icon">🔥</span>
+            <div class="stat-details">
+                <span class="stat-value"><?php echo number_format($calories); ?></span>
+                <span class="stat-label">calories</span>
+            </div>
+        </div>
+        <div class="nutrition-stat">
+            <span class="stat-icon">💪</span>
+            <div class="stat-details">
+                <span class="stat-value"><?php echo number_format($protein, 1); ?>g</span>
+                <span class="stat-label">protein</span>
+            </div>
+        </div>
+        <div class="nutrition-stat">
+            <span class="stat-icon">🌾</span>
+            <div class="stat-details">
+                <span class="stat-value"><?php echo number_format($carbs, 1); ?>g</span>
+                <span class="stat-label">carbs</span>
+            </div>
+        </div>
+        <div class="nutrition-stat">
+            <span class="stat-icon">🥑</span>
+            <div class="stat-details">
+                <span class="stat-value"><?php echo number_format($fats, 1); ?>g</span>
+                <span class="stat-label">fats</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="ingredients-list">
+        <h2>🍽️ Detected Items</h2>
+        <ul>
+            <?php foreach ($ingredients as $item): ?>
+            <li>
+                <span class="ingredient-icon"><?php echo $item['icon']; ?></span>
+                <span class="ingredient-name"><?php echo htmlspecialchars($item['name']); ?></span>
+                <span class="ingredient-amount"><?php echo htmlspecialchars($item['amount']); ?></span>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <footer class="result-footer">
+        <div class="qr-code">
+            <!-- QR code for the detailed results -->
+        </div>
+        <div class="footer-text">
+            <p>Scan for full analysis at nutricheck.my</p>
+            <p class="footer-tag">🎮 Level up your health with every meal!</p>
+        </div>
+    </footer>
+</div>
 
 <style>
-.achievement-banner {
-    padding: 1.5rem 1rem;
-    background: linear-gradient(to right, #f0f9ff, #e6f7ff);
-    text-align: center;
-}
-
-.achievement-title {
-    font-size: 1.875rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.analysis-level {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin: 1rem 0;
-}
-
-.progress-bar {
-    width: 100px;
-    height: 8px;
-    background: #e2e8f0;
-    border-radius: 4px;
+.result-card {
+    max-width: 1080px;
+    max-height: 1350px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-.progress-fill {
-    height: 100%;
-    background: #4a90e2;
-    transition: width 0.5s ease;
+.result-header {
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.progress-text {
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
-.achievement-message {
-    color: #4a5568;
-    font-size: 1.125rem;
-}
-</style>
-```
-
-## Stats Overview
-```html
-<section class="stats-overview" aria-labelledby="stats-title">
-    <h2 id="stats-title" class="sr-only">Nutrition Statistics Overview</h2>
-    
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon">🔥</div>
-            <h3>Energy Points</h3>
-            <div class="stat-value">436 kcal</div>
-            <p class="stat-subtitle">Power up your day!</p>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">💪</div>
-            <h3>Protein Power</h3>
-            <div class="stat-value">39.7g</div>
-            <p class="stat-subtitle">Build that character strength!</p>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">⚡</div>
-            <h3>Energy Crystals</h3>
-            <div class="stat-value">56.2g</div>
-            <p class="stat-subtitle">Fuel your next adventure!</p>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">🛡️</div>
-            <h3>Essential Fats</h3>
-            <div class="stat-value">6g</div>
-            <p class="stat-subtitle">Boost your defense stats!</p>
-        </div>
-    </div>
-</section>
-
-<style>
-.stats-overview {
-    padding: 2rem 1rem;
+.confidence {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
 }
 
-.stats-grid {
+.confidence-bar {
+    width: 60px;
+    height: 4px;
+    background: #e2e8f0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: #4a90e2;
+}
+
+.meal-preview {
+    position: relative;
+    height: 300px;
+    background: #f8fafc;
+    overflow: hidden;
+}
+
+.meal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.meal-overlay {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.nutrition-grid {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-@media (min-width: 640px) {
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .stats-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-.stat-card {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
     padding: 1.5rem;
-    background: white;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease;
+    background: #f8fafc;
 }
 
-.stat-card:hover {
-    transform: translateY(-2px);
+.nutrition-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .stat-icon {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
 }
 
 .stat-value {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: bold;
-    color: #4a90e2;
-    margin: 0.5rem 0;
+    color: #1a1a1a;
+    display: block;
 }
 
-.stat-subtitle {
-    color: #666;
+.stat-label {
     font-size: 0.875rem;
-}
-</style>
-```
-
-## Inventory Items
-```html
-<section class="inventory" aria-labelledby="inventory-title">
-    <div class="container">
-        <h2 id="inventory-title" class="inventory-title">
-            🎒 Your Meal Inventory
-        </h2>
-        <p class="inventory-subtitle">Here's what our Food Scanner detected!</p>
-        
-        <div class="inventory-grid">
-            <?php foreach ($foodItems as $item): ?>
-            <div class="inventory-card">
-                <div class="item-header">
-                    <div class="item-icon"><?php echo htmlspecialchars($item['icon']); ?></div>
-                    <div class="item-info">
-                        <h3><?php echo htmlspecialchars($item['name']); ?></h3>
-                        <p class="item-quantity">Quantity: <?php echo htmlspecialchars($item['quantity']); ?></p>
-                    </div>
-                </div>
-                
-                <div class="item-stats">
-                    <div class="stat-bar">
-                        <span class="stat-icon">🔥</span>
-                        <div class="stat-progress">
-                            <div class="stat-fill" style="width: <?php echo ($item['stats']['energy'] / 500) * 100; ?>%"></div>
-                        </div>
-                        <span class="stat-value"><?php echo htmlspecialchars($item['stats']['energy']); ?> HP</span>
-                    </div>
-                    <!-- Similar bars for protein, carbs, and fats -->
-                </div>
-                
-                <div class="item-ingredients">
-                    <p>🌟 Crafted with: <?php echo htmlspecialchars(implode(', ', $item['ingredients'])); ?></p>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<style>
-.inventory {
-    padding: 2rem 1rem;
-}
-
-.inventory-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-.inventory-subtitle {
-    text-align: center;
     color: #666;
-    margin-bottom: 2rem;
 }
 
-.inventory-grid {
-    display: grid;
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.inventory-card {
-    background: white;
-    border-radius: 0.75rem;
+.ingredients-list {
     padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.item-header {
-    display: flex;
-    gap: 1rem;
+.ingredients-list h2 {
+    font-size: 1.25rem;
     margin-bottom: 1rem;
 }
 
-.item-icon {
-    font-size: 2.5rem;
+.ingredients-list ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
 }
 
-.item-info h3 {
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
-.item-quantity {
-    color: #666;
-}
-
-.stat-bar {
+.ingredients-list li {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
 }
 
-.stat-progress {
-    flex: 1;
-    height: 8px;
-    background: #e2e8f0;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.stat-fill {
-    height: 100%;
-    background: #4a90e2;
-    transition: width 0.3s ease;
-}
-
-.stat-value {
-    font-size: 0.875rem;
-    min-width: 4rem;
-}
-
-.item-ingredients {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid #e2e8f0;
-    font-size: 0.875rem;
+.ingredient-amount {
+    margin-left: auto;
     color: #666;
-}
-</style>
-```
-
-## Quick Actions
-```html
-<section class="quick-actions" aria-labelledby="actions-title">
-    <h2 id="actions-title" class="sr-only">Quick Actions</h2>
-    
-    <div class="actions-grid">
-        <a href="/modify" class="action-button">
-            <span class="action-icon">🔄</span>
-            <span class="action-text">Modify Quest</span>
-        </a>
-        
-        <a href="/new" class="action-button">
-            <span class="action-icon">📸</span>
-            <span class="action-text">New Adventure</span>
-        </a>
-        
-        <a href="/share" class="action-button">
-            <span class="action-icon">🏆</span>
-            <span class="action-text">Share Victory</span>
-        </a>
-        
-        <a href="/save" class="action-button">
-            <span class="action-icon">📜</span>
-            <span class="action-text">Save to Codex</span>
-        </a>
-    </div>
-</section>
-
-<style>
-.quick-actions {
-    padding: 2rem 1rem;
+    font-size: 0.875rem;
 }
 
-.actions-grid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-@media (min-width: 640px) {
-    .actions-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .actions-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-.action-button {
+.result-footer {
+    padding: 1.5rem;
+    background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.5rem;
-    color: #1a1a1a;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.action-button:hover {
-    background: #f7fafc;
-    transform: translateY(-2px);
-}
-
-.action-icon {
-    font-size: 1.25rem;
-}
-
-.action-text {
-    font-weight: 500;
-}
-</style>
-```
-
-## Footer
-```html
-<footer class="footer" role="contentinfo">
-    <div class="container">
-        <p class="footer-text">✨ Achievement analyzed in 10s flat!</p>
-        <p class="footer-text">🎮 Keep leveling up your nutrition game!</p>
-    </div>
-</footer>
-
-<style>
-.footer {
-    padding: 1rem;
-    background: #f7fafc;
+    gap: 1rem;
     text-align: center;
 }
 
-.footer-text {
+.footer-tag {
     color: #666;
     font-size: 0.875rem;
-    margin: 0.25rem 0;
+    margin-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+    .nutrition-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .ingredients-list ul {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
-```
 
-## PHP Functions
-```php
 <?php
-// Data formatting functions
-function formatNutritionValue($value, $unit) {
-    return number_format($value, 1) . $unit;
-}
-
-function calculatePercentage($value, $max) {
-    return min(($value / $max) * 100, 100);
-}
-
-// Example data structure
-$foodItems = [
+// Example data structure for ingredients
+$ingredients = [
     [
         'icon' => '🍗',
-        'name' => 'Epic Grilled Chicken',
-        'quantity' => '1 piece (150g)',
-        'stats' => [
-            'energy' => 165,
-            'protein' => 31,
-            'carbs' => 0,
-            'fats' => 3.6
-        ],
-        'ingredients' => ['Premium chicken breast', 'Sacred olive oil', 'Rare herbs & seasonings']
+        'name' => 'Grilled Chicken',
+        'amount' => '150g'
     ],
-    // Add more items as needed
+    [
+        'icon' => '🌾',
+        'name' => 'Brown Rice',
+        'amount' => '200g'
+    ],
+    [
+        'icon' => '🥦',
+        'name' => 'Broccoli',
+        'amount' => '100g'
+    ],
+    [
+        'icon' => '🥕',
+        'name' => 'Carrots',
+        'amount' => '50g'
+    ]
 ];
-
-// Helper function for accessibility
-function generateAriaLabel($stats) {
-    return sprintf(
-        'Contains %s calories, %s protein, %s carbohydrates, and %s fat',
-        formatNutritionValue($stats['energy'], 'kcal'),
-        formatNutritionValue($stats['protein'], 'g'),
-        formatNutritionValue($stats['carbs'], 'g'),
-        formatNutritionValue($stats['fats'], 'g')
-    );
-}
 ?>
