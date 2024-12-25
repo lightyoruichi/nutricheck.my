@@ -496,316 +496,222 @@ if (isset($_SESSION['analysis_result'])) {
         }
 
         .results-card {
+            max-width: 1080px;
+            max-height: 1350px;
+            margin: 2rem auto;
             background: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            margin-top: 1.5rem;
-            box-shadow: var(--shadow-md);
-            animation: slideUp 0.3s ease-out;
-            position: relative;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-        }
-
-        .result-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(to right, #4CAF50, #45a049);
-        }
-
-        .result-card.screenshot-mode {
-            padding-bottom: 3rem;
-        }
-
-        .result-card.screenshot-mode::after {
-            content: 'Analyzed with nutricheck.my';
-            position: absolute;
-            bottom: 1rem;
-            right: 1rem;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            opacity: 0.7;
+            position: relative;
         }
 
         .result-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f3ff 100%);
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5rem;
-            gap: 1rem;
+            align-items: center;
         }
 
-        .result-header h3 {
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin: 0;
-            color: var(--text-primary);
+        .brand {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            animation: bounce 0.6s ease-out;
         }
 
-        .completion-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            color: white;
-            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
-        }
-
-        .completion-icon {
+        .brand-logo {
             font-size: 1.5rem;
-            animation: spin 4s linear infinite;
         }
 
-        .completion-text {
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        .analysis-info {
             display: flex;
             flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
         }
 
-        .confidence-label {
-            font-size: 0.75rem;
-            opacity: 0.9;
+        .confidence-meter {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
         }
 
-        .confidence-value {
-            font-size: 1.125rem;
-            font-weight: 600;
-        }
-
-        .success-message {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1.125rem;
-            margin-bottom: 2rem;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .metric {
-            background: #f8fafc;
-            padding: 1.25rem;
-            border-radius: 16px;
-            transition: all 0.2s ease;
-            position: relative;
+        .confidence-bar {
+            width: 60px;
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
             overflow: hidden;
         }
 
-        .metric:hover {
-            transform: translateY(-2px);
-            background: #f1f5f9;
+        .confidence-fill {
+            height: 100%;
+            background: #4a90e2;
+            transition: width 0.3s ease;
         }
 
-        .metric-label {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .metric-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .metric-subtitle {
+        .timestamp {
             font-size: 0.75rem;
             color: var(--text-secondary);
-            font-style: italic;
         }
 
-        .metric-value {
+        .meal-preview {
+            position: relative;
+            height: 300px;
+            background: #f8fafc;
+            overflow: hidden;
+        }
+
+        .meal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .meal-badge {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+        }
+
+        .nutrition-stat {
             display: flex;
-            align-items: baseline;
-            gap: 0.25rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
-        .metric-value .unit {
+        .stat-icon {
+            font-size: 1.5rem;
+        }
+
+        .stat-details {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .stat-label {
             font-size: 0.875rem;
             color: var(--text-secondary);
+        }
+
+        .ingredients-list {
+            padding: 1.5rem;
+        }
+
+        .ingredients-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .ingredient-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border-radius: 8px;
+        }
+
+        .ingredient-icon {
+            font-size: 1.25rem;
+        }
+
+        .ingredient-name {
+            flex: 1;
             font-weight: 500;
         }
 
-        .metric-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: var(--progress);
-            height: 4px;
-            background: linear-gradient(to right, #4CAF50, #45a049);
-            border-radius: 0 2px 2px 0;
-            transition: width 1s ease-out;
-        }
-
-        .food-items {
-            margin-top: 2.5rem;
-        }
-
-        .food-items h4 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .food-item {
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            transition: all 0.2s ease;
-        }
-
-        .food-item:hover {
-            transform: translateY(-2px);
-            background: #f1f5f9;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .metric-pill {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: white;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
+        .ingredient-amount {
             color: var(--text-secondary);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.2s ease;
+            font-size: 0.875rem;
         }
 
-        .metric-pill:hover {
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-            color: var(--accent-color);
-        }
-
-        .share-section {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-            justify-content: center;
-            padding: 0 1rem;
-        }
-
-        .share-button,
-        .download-button {
+        .result-footer {
+            padding: 1.5rem;
+            background: #f8fafc;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: #f8fafc;
-            color: var(--text-primary);
-            min-width: 140px;
             justify-content: center;
+            gap: 1.5rem;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .share-button:hover,
-        .download-button:hover {
-            transform: translateY(-2px);
-            background: #f1f5f9;
-            box-shadow: var(--shadow-md);
+        .qr-code {
+            width: 80px;
+            height: 80px;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 8px;
         }
 
-        .share-button:active,
-        .download-button:active {
-            transform: translateY(0);
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
         }
 
-        .button-icon {
-            font-size: 1.25rem;
-            transition: transform 0.2s ease;
+        .footer-tag {
+            margin-top: 0.25rem;
+            font-style: italic;
         }
 
-        .share-button:hover .button-icon,
-        .download-button:hover .button-icon {
-            transform: translateY(-2px);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
+        @media (max-width: 640px) {
+            .nutrition-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .metrics-grid {
+            
+            .ingredients-grid {
                 grid-template-columns: 1fr;
             }
-
-            .food-item-metrics {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-
-            .metric-pill {
-                flex: 1;
-                min-width: calc(50% - 0.5rem);
-            }
-
-            .share-section {
+            
+            .result-header {
                 flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
             }
-
-            .share-button,
-            .download-button {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .halal-tooltip {
-                width: 200px;
-                font-size: 0.8125rem;
-                padding: 0.5rem 0.75rem;
+            
+            .analysis-info {
+                align-items: center;
             }
         }
 
@@ -936,7 +842,7 @@ if (isset($_SESSION['analysis_result'])) {
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1 class="adidas-style">🍽️ nutricheck</h1>
+            <a href="https://nutricheck.my" class="adidas-style hover:opacity-90 transition-opacity">🍽️ nutricheck</a>
             <p>Level up your meals for better health</p>
         </header>
 
@@ -988,129 +894,82 @@ if (isset($_SESSION['analysis_result'])) {
                 </div>
 
                 <?php if ($analysisResult) : ?>
-                <div class="result-card" id="resultCard">
-                    <div class="result-header">
-                        <h3>🍽 Analysis Complete!</h3>
-                        <div class="completion-badge">
-                            <div class="completion-icon">✨</div>
-                            <div class="completion-text">
-                                <span class="confidence-label">Analysis Confidence</span>
-                                <span class="confidence-value"><?php echo $analysisResult['confidence']; ?></span>
-                            </div>
+                <div class="results-card" id="resultCard">
+                    <header class="result-header">
+                        <div class="brand">
+                            <span class="brand-logo">🎯</span>
+                            <h1 class="brand-name">nutricheck.my</h1>
                         </div>
-                    </div>
-
-                    <div class="success-message">
-                        Great job! Here's your meal's nutritional breakdown
-                    </div>
-                    
-                    <div class="metrics-grid">
-                        <div class="metric">
-                            <div class="metric-label">
-                                <span class="metric-icon">🔥</span>
-                                <span>Calories</span>
-                                <span class="metric-subtitle">Fuel for your journey</span>
-                            </div>
-                            <div class="metric-value">
-                                <span class="value"><?php echo $analysisResult['total']['calories']; ?></span>
-                                <span class="unit">kcal</span>
-                            </div>
-                            <div class="metric-progress" style="--progress: <?php echo min(100, ($analysisResult['total']['calories'] / 2000) * 100); ?>%"></div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-label">
-                                <span class="metric-icon">🥩</span>
-                                <span>Protein</span>
-                                <span class="metric-subtitle">Muscle power, unlocked!</span>
-                            </div>
-                            <div class="metric-value">
-                                <span class="value"><?php echo $analysisResult['total']['protein']; ?></span>
-                            </div>
-                            <div class="metric-progress" style="--progress: <?php echo min(100, (intval($analysisResult['total']['protein']) / 50) * 100); ?>%"></div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-label">
-                                <span class="metric-icon">🍚</span>
-                                <span>Carbs</span>
-                                <span class="metric-subtitle">Energy on demand</span>
-                            </div>
-                            <div class="metric-value">
-                                <span class="value"><?php echo $analysisResult['total']['carbs']; ?></span>
-                            </div>
-                            <div class="metric-progress" style="--progress: <?php echo min(100, (intval($analysisResult['total']['carbs']) / 300) * 100); ?>%"></div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-label">
-                                <span class="metric-icon">🥑</span>
-                                <span>Fat</span>
-                                <span class="metric-subtitle">Good vibes (and oils)</span>
-                            </div>
-                            <div class="metric-value">
-                                <span class="value"><?php echo $analysisResult['total']['fat']; ?></span>
-                            </div>
-                            <div class="metric-progress" style="--progress: <?php echo min(100, (intval($analysisResult['total']['fat']) / 65) * 100); ?>%"></div>
-                        </div>
-                    </div>
-
-                    <div class="food-items">
-                        <h4>🍱 Here's what we found on your plate</h4>
-                        <?php foreach ($analysisResult['items'] as $item): ?>
-                        <div class="food-item">
-                            <div class="food-item-header">
-                                <h5><?php echo htmlspecialchars($item['name']); ?></h5>
-                                <span class="portion"><?php echo htmlspecialchars($item['portion']); ?></span>
-                            </div>
-                            <div class="food-item-metrics">
-                                <span class="metric-pill">
-                                    <span class="metric-icon">🔥</span>
-                                    <span class="metric-value"><?php echo $item['calories']; ?> cal</span>
-                                </span>
-                                <span class="metric-pill">
-                                    <span class="metric-icon">🥩</span>
-                                    <span class="metric-value"><?php echo $item['protein']; ?></span>
-                                </span>
-                                <span class="metric-pill">
-                                    <span class="metric-icon">🍚</span>
-                                    <span class="metric-value"><?php echo $item['carbs']; ?></span>
-                                </span>
-                                <span class="metric-pill">
-                                    <span class="metric-icon">🥑</span>
-                                    <span class="metric-value"><?php echo $item['fat']; ?></span>
-                                </span>
-                            </div>
-                            <div class="ingredients">
-                                <h6>🥗 Made with:</h6>
-                                <div class="ingredients-list">
-                                    <?php foreach ($item['ingredients'] as $ingredient): ?>
-                                    <span class="ingredient-tag"><?php echo htmlspecialchars($ingredient); ?></span>
-                                    <?php endforeach; ?>
+                        <div class="analysis-info">
+                            <div class="confidence-meter">
+                                <span>Analysis Confidence</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: <?php echo $confidence; ?>%"></div>
                                 </div>
+                                <span><?php echo $confidence; ?>%</span>
+                            </div>
+                            <time class="timestamp">Analyzed on <?php echo date('M j, Y'); ?></time>
+                        </div>
+                    </header>
+
+                    <div class="meal-preview">
+                        <img src="<?php echo htmlspecialchars($imageUrl); ?>" alt="Your meal" class="meal-image">
+                        <div class="meal-badge">✨ Epic Meal Analysis</div>
+                    </div>
+
+                    <div class="nutrition-grid">
+                        <div class="nutrition-stat">
+                            <span class="stat-icon">🔥</span>
+                            <div class="stat-details">
+                                <span class="stat-value"><?php echo number_format($calories); ?></span>
+                                <span class="stat-label">calories</span>
                             </div>
                         </div>
-                        <?php endforeach; ?>
+                        <div class="nutrition-stat">
+                            <span class="stat-icon">💪</span>
+                            <div class="stat-details">
+                                <span class="stat-value"><?php echo number_format($protein, 1); ?>g</span>
+                                <span class="stat-label">protein</span>
+                            </div>
+                        </div>
+                        <div class="nutrition-stat">
+                            <span class="stat-icon">🌾</span>
+                            <div class="stat-details">
+                                <span class="stat-value"><?php echo number_format($carbs, 1); ?>g</span>
+                                <span class="stat-label">carbs</span>
+                            </div>
+                        </div>
+                        <div class="nutrition-stat">
+                            <span class="stat-icon">🥑</span>
+                            <div class="stat-details">
+                                <span class="stat-value"><?php echo number_format($fats, 1); ?>g</span>
+                                <span class="stat-label">fats</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="action-buttons">
-                        <button type="button" class="action-button secondary-button" onclick="resetForm()">
-                            <span class="button-icon">←</span>
-                            <span>Edit Meal</span>
-                        </button>
-                        <button type="button" class="action-button primary-button" onclick="retakePhoto()">
-                            <span class="button-icon">📸</span>
-                            <span>Analyze Another Meal</span>
-                        </button>
+                    <div class="ingredients-list">
+                        <h2 class="ingredients-title">🍽️ Detected Items</h2>
+                        <div class="ingredients-grid">
+                            <?php foreach ($ingredients as $item): ?>
+                            <div class="ingredient-item">
+                                <span class="ingredient-icon"><?php echo $item['icon']; ?></span>
+                                <span class="ingredient-name"><?php echo htmlspecialchars($item['name']); ?></span>
+                                <span class="ingredient-amount"><?php echo htmlspecialchars($item['amount']); ?></span>
+                            </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
 
-                    <div class="share-section">
-                        <button type="button" class="share-button" onclick="shareResults()">
-                            <span class="button-icon">📤</span>
-                            <span>Share Results</span>
-                        </button>
-                        <button type="button" class="download-button" onclick="downloadPDF()">
-                            <span class="button-icon">📥</span>
-                            <span>Download Report</span>
-                        </button>
-                    </div>
+                    <footer class="result-footer">
+                        <div class="qr-code">
+                            <!-- QR code will be generated via JavaScript -->
+                        </div>
+                        <div class="footer-text">
+                            <p>Scan for full analysis at nutricheck.my</p>
+                            <p class="footer-tag">🎮 Level up your health with every meal!</p>
+                        </div>
+                    </footer>
                 </div>
                 <?php endif; ?>
             </form>
