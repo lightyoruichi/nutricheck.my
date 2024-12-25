@@ -9,7 +9,7 @@
             <directory>tests</directory>
         </testsuite>
     </testsuites>
-    <coverage>
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">.</directory>
         </include>
@@ -19,7 +19,7 @@
         </exclude>
     </coverage>
     <php>
-        <const name="UPLOAD_DIR" value="/tmp/nutricheck_test"/>
+        <const name="UPLOAD_DIR" value="/var/www/html/uploads/"/>
         <const name="MAX_FILE_SIZE" value="10485760"/>
         <const name="ALLOWED_TYPES" value="['image/jpeg', 'image/png', 'image/gif', 'image/webp']"/>
     </php>

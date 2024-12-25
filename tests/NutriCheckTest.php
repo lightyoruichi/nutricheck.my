@@ -5,123 +5,89 @@ use PHPUnit\Framework\TestCase;
 class NutriCheckTest extends TestCase
 {
     private $uploadDir;
-    private $testImagePath;
 
     protected function setUp(): void
     {
-        // Create temporary upload directory for testing
-        $this->uploadDir = sys_get_temp_dir() . '/nutricheck_test_' . uniqid();
-        mkdir($this->uploadDir);
-
-        // Create a test image
-        $this->testImagePath = $this->uploadDir . '/test.jpg';
-        $this->createTestImage();
+        $this->uploadDir = sys_get_temp_dir() . '/nutricheck_test_uploads';
+        if (!is_dir($this->uploadDir)) {
+            mkdir($this->uploadDir);
+        }
     }
 
     protected function tearDown(): void
     {
-        // Clean up test files
-        if (file_exists($this->testImagePath)) {
-            unlink($this->testImagePath);
+        $files = glob($this->uploadDir . '/*');
+        foreach ($files as $file) {
+            unlink($file);
         }
-        if (is_dir($this->uploadDir)) {
-            rmdir($this->uploadDir);
-        }
+        rmdir($this->uploadDir);
     }
 
-    private function createTestImage()
+    public function testUploadDirectoryIsWritable()
     {
-        // Create a simple test image
-        $image = imagecreatetruecolor(100, 100);
-        $bgColor = imagecolorallocate($image, 255, 255, 255);
-        imagefill($image, 0, 0, $bgColor);
-        imagejpeg($image, $this->testImagePath);
-        imagedestroy($image);
+        $this->assertTrue(is_writable($this->uploadDir), 'Upload directory should be writable');
     }
 
     public function testFileUploadValidation()
     {
-        $_FILES['foodImage'] = [
+        $testFile = $this->createTestImage();
+        $uploadedFile = [
             'name' => 'test.jpg',
             'type' => 'image/jpeg',
-            'tmp_name' => $this->testImagePath,
+            'tmp_name' => $testFile,
             'error' => UPLOAD_ERR_OK,
-            'size' => filesize($this->testImagePath)
+            'size' => filesize($testFile)
         ];
 
-        // Test file size validation
-        $this->assertTrue($_FILES['foodImage']['size'] <= MAX_FILE_SIZE, 'File size should be within limits');
-
-        // Test file type validation
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $_FILES['foodImage']['tmp_name']);
-        finfo_close($finfo);
-
-        $this->assertTrue(in_array($mimeType, ALLOWED_TYPES), 'File type should be allowed');
+        $this->assertTrue(
+            $this->validateUpload($uploadedFile),
+            'Valid image upload should pass validation'
+        );
     }
 
-    public function testAnalysisResult()
+    public function testInvalidFileType()
     {
-        // Mock the analysis result
-        $analysisResult = [
-            'name' => 'Sample Food',
-            'calories' => 250,
-            'protein' => '15g',
-            'carbs' => '30g',
-            'fat' => '10g',
-            'confidence' => '85%'
-        ];
-
-        // Test result structure
-        $this->assertArrayHasKey('name', $analysisResult);
-        $this->assertArrayHasKey('calories', $analysisResult);
-        $this->assertArrayHasKey('protein', $analysisResult);
-        $this->assertArrayHasKey('carbs', $analysisResult);
-        $this->assertArrayHasKey('fat', $analysisResult);
-        $this->assertArrayHasKey('confidence', $analysisResult);
-
-        // Test data types
-        $this->assertIsString($analysisResult['name']);
-        $this->assertIsNumeric($analysisResult['calories']);
-        $this->assertIsString($analysisResult['protein']);
-        $this->assertIsString($analysisResult['carbs']);
-        $this->assertIsString($analysisResult['fat']);
-        $this->assertIsString($analysisResult['confidence']);
-    }
-
-    public function testErrorHandling()
-    {
-        // Test invalid file type
-        $_FILES['foodImage'] = [
+        $testFile = tempnam(sys_get_temp_dir(), 'test');
+        file_put_contents($testFile, 'Invalid file content');
+        $uploadedFile = [
             'name' => 'test.txt',
             'type' => 'text/plain',
-            'tmp_name' => __DIR__ . '/test.txt',
+            'tmp_name' => $testFile,
             'error' => UPLOAD_ERR_OK,
-            'size' => 100
+            'size' => filesize($testFile)
         ];
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mimeType = finfo_file($finfo, $this->testImagePath);
-        finfo_close($finfo);
-
-        $this->assertFalse(in_array('text/plain', ALLOWED_TYPES), 'Text files should not be allowed');
-
-        // Test file size limit
-        $oversizedFile = [
-            'name' => 'large.jpg',
-            'type' => 'image/jpeg',
-            'tmp_name' => $this->testImagePath,
-            'error' => UPLOAD_ERR_OK,
-            'size' => MAX_FILE_SIZE + 1
-        ];
-
-        $this->assertGreaterThan(MAX_FILE_SIZE, $oversizedFile['size'], 'Should detect oversized files');
+        $this->assertFalse(
+            $this->validateUpload($uploadedFile),
+            'Invalid file type should fail validation'
+        );
+        unlink($testFile);
     }
 
-    public function testUploadDirectoryPermissions()
+    private function createTestImage()
     {
-        // Test if upload directory exists and is writable
-        $this->assertTrue(is_dir($this->uploadDir), 'Upload directory should exist');
-        $this->assertTrue(is_writable($this->uploadDir), 'Upload directory should be writable');
+        $file = tempnam(sys_get_temp_dir(), 'test');
+        $im = imagecreatetruecolor(100, 100);
+        imagejpeg($im, $file);
+        imagedestroy($im);
+        return $file;
+    }
+
+    private function validateUpload($file)
+    {
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            return false;
+        }
+
+        if ($file['size'] > 10485760) { // 10MB
+            return false;
+        }
+
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $file['tmp_name']);
+        finfo_close($finfo);
+
+        return in_array($mimeType, $allowedTypes, true);
     }
 } 

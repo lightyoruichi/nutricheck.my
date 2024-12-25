@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<ruleset name="NutriCheck Coding Standard">
+    <description>NutriCheck coding standard based on PSR12</description>
+
+    <!-- Use PSR12 as the base -->
+    <rule ref="PSR12"/>
+
+    <!-- Paths to check -->
+    <file>index.php</file>
+
+    <!-- Exclude vendor directory -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+    <arg name="colors"/>
+
+    <!-- Show sniff codes in all reports -->
+    <arg value="s"/>
+
+    <!-- Allow long lines due to HTML content -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Ignore certain rules for inline HTML -->
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader"/>
+    </rule>
+</ruleset> 

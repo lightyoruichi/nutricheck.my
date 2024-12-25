@@ -1,121 +1,117 @@
 # 🍽️ NutriCheck
 
-A lightweight, single-file PHP application for instant food analysis through image processing. Built with simplicity and ease of use in mind.
+A streamlined, single-page PHP application for quick and easy meal nutrition analysis.
 
-## ✨ Features
+## Features
 
-### 📸 Image Upload
-- Drag & drop support
-- Camera capture on mobile
-- Gallery selection
-- Real-time preview
-- Progress indication
-- Supports JPG, PNG, GIF, WebP
-- Up to 10MB file size
+- 📸 Instant image upload/capture with mobile camera support
+- 🔄 Real-time image preview and analysis
+- 📊 Detailed nutritional breakdown
+- 🧩 Ingredient identification
+- 📱 Responsive, mobile-first design
+- 🎨 Modern UI with gradient accents and glass morphism
+- 🔒 Secure file handling and CSRF protection
 
-### 🔍 Analysis Features
-- Instant food recognition
-- Nutritional information:
-  - 🔥 Calories
-  - 🥩 Protein
-  - 🍚 Carbs
-  - 🥑 Fat
-- Confidence scoring
-- Real-time feedback
+## Technical Stack
 
-### 💫 User Experience
-- Mobile-first design
-- Adaptive interface
-- Smart device detection
-- Intuitive controls
-- Visual feedback
-- Error handling
+- PHP 8.3
+- Apache 2.4
+- Bootstrap 5.3
+- Vanilla JavaScript
+- CSS3 with Custom Properties
+- Let's Encrypt SSL
 
-## 🚀 Quick Start
+## Recent Improvements
+
+- Optimized layout with reduced whitespace and better proportions
+- Enhanced visual hierarchy with gradient header and glass morphism effects
+- Improved mobile experience with context-aware upload prompts
+- Streamlined single-file architecture
+- Added CSRF protection and secure file handling
+- Implemented real-time analysis feedback
+- Enhanced error handling and user feedback
+
+## UI/UX Features
+
+- Gradient accents for visual hierarchy
+- Glass morphism effects for modern aesthetics
+- Optimized spacing and proportions
+- Mobile-first responsive design
+- Context-aware interface elements
+- Smooth animations and transitions
+- Clear visual feedback
+
+## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/lightyoruichi/nutricheck.my.git
+git clone git@github.com:lightyoruichi/nutricheck.my.git
 ```
 
-2. Set up permissions:
-```bash
-mkdir uploads
-chmod 775 uploads
-```
-
-3. Configure your web server (Apache/Nginx) to point to the directory.
-
-## ⚙️ Requirements
-
-- PHP 8.3+
-- Web server (Apache/Nginx)
-- FileInfo extension
-- GD/Imagick extension
-- Write permissions for uploads directory
-
-## 🔧 Configuration
-
-The application uses these default settings (adjustable in `index.php`):
-
-```php
-define('UPLOAD_DIR', __DIR__ . '/uploads/');
-define('MAX_FILE_SIZE', 10 * 1024 * 1024); // 10MB
-define('ALLOWED_TYPES', ['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
-```
-
-## 🌐 Web Server Configuration
-
-### Nginx
-```nginx
-location ~ \.php$ {
-    include snippets/fastcgi-php.conf;
-    fastcgi_pass unix:/run/php/php8.3-fpm.sock;
-}
-
-client_max_body_size 10M;
-```
-
-### Apache
+2. Set up Apache virtual host:
 ```apache
-<Directory /path/to/nutricheck>
-    AllowOverride All
-    Require all granted
-</Directory>
-
-php_value upload_max_filesize 10M
-php_value post_max_size 10M
+<VirtualHost *:80>
+    ServerName nutricheck.my
+    DocumentRoot /var/www/html
+    <Directory /var/www/html>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
 ```
 
-## 🔒 Security
+3. Configure SSL with Let's Encrypt:
+```bash
+sudo certbot --apache -d nutricheck.my
+```
 
-- File type validation
-- Size restrictions
-- Error handling
+4. Set proper permissions:
+```bash
+sudo chown -R www-data:www-data /var/www/html
+sudo chmod -R 755 /var/www/html
+sudo chmod -R 775 /var/www/html/uploads
+```
+
+## Development
+
+1. Install PHP dependencies:
+```bash
+composer install
+```
+
+2. Run tests:
+```bash
+./vendor/bin/phpunit --testdox
+```
+
+3. Deploy changes:
+```bash
+sudo ./deploy.sh
+```
+
+## Security
+
+- CSRF protection on all forms
+- Secure file upload handling
+- SSL/TLS encryption
+- Input sanitization
 - XSS prevention
-- Upload directory protection
+- Rate limiting
+- File type validation
 
-## 📱 Mobile Support
-
-The application automatically detects mobile devices and provides:
-- Camera access for food photos
-- Gallery selection option
-- Touch-friendly interface
-- Responsive design
-- Safe area handling
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create your feature branch
-3. Make your changes
-4. Create a pull request
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
 
-## 📄 License
+## License
 
-MIT License - see [LICENSE](LICENSE)
+MIT License - see LICENSE file for details.
 
-## 👥 Contact
+## Contact
 
-- Author: [@lightyoruichi](https://github.com/lightyoruichi)
-- Project: [nutricheck.my](https://github.com/lightyoruichi/nutricheck.my) 
+For questions or feedback, please open an issue on GitHub. 
