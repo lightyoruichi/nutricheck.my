@@ -1,0 +1,86 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-*
+.vscode-test
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+error_log
+access_log
+
+# Environment files
+.env
+.env.*
+!.env.example
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# Uploads directory
+uploads/*
+!uploads/.gitkeep
+
+# Dependency directories
+/vendor/
+node_modules/
+jspm_packages/
+bower_components/
+
+# Build and cache directories
+.next
+out
+.nuxt
+dist
+.cache
+.parcel-cache
+.temp
+.docusaurus
+.serverless/
+.dynamodb/
+
+# TypeScript
+*.tsbuildinfo
+
+# Test coverage
+coverage
+*.lcov
+.nyc_output
+
+# Temporary files
+*.swp
+*.swo
+*~
+.npm
+.eslintcache
+.stylelintcache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Yarn specific
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+.yarn-integrity
+
+# Misc
+*.pid
+*.seed
+*.pid.lock
+*.tgz
+.tern-port

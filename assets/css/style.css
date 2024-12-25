@@ -1,0 +1,45 @@
+/* Custom styles for NutriCheck */
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Image preview styles */
+#imagePreview {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    border-radius: 0.375rem;
+    display: none;
+}
+
+/* Custom file input styling */
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+
+/* Loading spinner */
+.spinner-border {
+    display: none;
+}
+
+/* Analysis results styling */
+.analysis-results {
+    margin-top: 2rem;
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-bottom: 80px; /* Account for fixed footer */
+    }
+} 
